@@ -1,17 +1,24 @@
 # Singapore GP Predictor
 
-This project predicts qualifying times and race positions for F1 Grand Prix races using historical F1 data and machine learning. Currently is dedicated to Singapore GP only.
+Predicts qualifying lap times and race finishing positions for the Singapore Grand Prix using historical F1 data (FastF1) and machine learning. Train years: 2022–2024; test year is configurable (e.g. 2025).
 
 ## Features
-1. Fetches and caches F1 session data (2022–2024) using [FastF1](https://theoehrly.github.io/Fast-F1/).  
-2. Predicts qualifying times with XGBoost based on driver performance.  
-3. Predicts final race standings using qualifying predictions, past performance, and constructor info.  
-4. Provides Mean Absolute Error metrics for model evaluation.  
+
+- **Data:** Fetches Singapore GP qualifying and race data from [FastF1](https://theoehrly.github.io/Fast-F1/) (lap times, positions, drivers, teams, grid) and caches it locally so you don’t re-download every run.
+- **Qualifying:** Predicts each driver’s quali lap time (seconds) from driver, team, year, and their past Singapore quali times; uses XGBoost and compares it to Random Forest and Ridge.
+- **Race:** Predicts finishing position from driver, team, grid, predicted quali time, and past Singapore results; same three models, with MAE reported in positions (e.g. 3.0 = about 3 places off on average).
+- **Output:** Prints MAE for all models (quali in seconds, race in positions) and a table of predicted vs actual for the test year.
 
 ## Installation
+
+Install the packages listed in `requirements.txt` (so your environment matches the project):
+
 ```bash
 pip install -r requirements.txt
 ```
-## Run Program
-```
+
+## Run
+
+```bash
 python singapore_gp.py
+```
