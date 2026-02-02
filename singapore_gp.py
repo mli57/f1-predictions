@@ -100,6 +100,7 @@ quali_df['Constructor_encoded'] = quali_df['Constructor_encoded'].fillna(-1).ast
 
 
 
+
 ## Train XGBoost to predict Qualifying Times
 
 # Train test split: train 2022-2024, test 2025
@@ -185,6 +186,7 @@ race_train = race_train.rename(columns={'QualiTime_sec': 'PredictedQualiTime'})
 # Grid (starting position) is a strong predictor of finish position
 race_train['Grid_for_model'] = pd.to_numeric(race_train['Grid'], errors='coerce')
 race_train['Grid_for_model'] = race_train['Grid_for_model'].fillna(race_train['Grid_for_model'].median())
+
 
 ##Train XGBoost to predict Race Positions (train on 2022-2024, test on 2025)
 race_features = ['Driver_encoded', 'Constructor_encoded', 'Grid_for_model', 'PredictedQualiTime', 'AvgPastFinishing']
